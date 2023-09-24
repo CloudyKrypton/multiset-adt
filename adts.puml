@@ -1,0 +1,61 @@
+@startuml
+abstract class MultiSet {
+
+{abstract} + add(self, item: Any) -> bool
+{abstract} + remove(self, item: Any) -> None
+{abstract} + contains(self, item: Any) -> bool
+{abstract} + is_empty(self) -> bool
+{abstract} + count(self, item: Any) -> int
+{abstract} + size(self) -> int
+}
+
+class TreeMultiSet {
+
+-tree: Tree
+
+
+}
+
+class Tree {
+-root: Optional[Any]
+-subtrees: list[Tree]
+
++ insert(self, item: Any) -> bool
++ insert_child(self, item: Any, parent: Any) -> bool
+- _extract_leaf(self) -> Any
+- _delete_root(self) -> None
++ delete_item(self, item: Any) -> bool
++ leaves(self) -> list
++ average(self) -> float
+- _average_helper(self) -> tuple[int, int]
++ __contains__(self, item: Any) -> bool
++ __str__(self) -> str
++ __len__(self) -> int
+}
+
+class ArrayListMultiSet {
+-list: list
+
+}
+
+class LinkedListMultiSet {
+
+-front: _Node | None
+-size: int
+
+}
+
+class _Node {
+
++item: Any
++next: _Node | None
+
+}
+
+MultiSet <-- TreeMultiSet
+MultiSet <-- ArrayListMultiSet
+MultiSet <-- LinkedListMultiSet
+LinkedListMultiSet *-- _Node
+TreeMultiSet <-- Tree
+
+@enduml
